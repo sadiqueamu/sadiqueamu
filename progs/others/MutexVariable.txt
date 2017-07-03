@@ -1,0 +1,25 @@
+pthread_mutex_t a_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+pthread_mutex_t myMutex = PTHREAD_MUTEX_INITIALIZER; //fast mutex
+
+pthread_mutex_t myMutex = PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP; //recursive mutex
+
+int rc = pthread_mutex_lock(&a_mutex);
+if (rc) { /* an error has occurred */
+    perror("pthread_mutex_lock");
+    pthread_exit(NULL);
+}
+/* mutex is now locked - do your stuff. */
+.
+.
+
+
+
+pthread_t tid;
+pthread_attr_t attr;
+pthread_attr_setdetachstate(&attr,PTHRAED_CREATE_JOINABLE);
+
+int rc = pthread_create(&tid,&attr,someMethod,someArguments);
+
+
+rc = pthread_join(&tid,&status);

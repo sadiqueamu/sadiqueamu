@@ -1,0 +1,103 @@
+virtual functions, virtual constructors, virtual destructors, Vtable,vptr - done
+deep copy and shallow copy with examples - done
+function overloading and default argument ambiguity - done
+operator overloading - done
+exception handling - 
+diamond problem(virtual base class) : done
+templates : 
+stl : 
+smart pointers : 
+delete alternate node in a Linked list :
+Design Patterns : singleton, factory design
+class diagram : done
+
+Practice programs
+C++ mcq were not easy. Study ostream, istream, cin etc. How to overload << operator. From STL 2-3 
+questions were of usingthe sort method
+pointers: function pointer, dynamic allocation of 2-d
+Difference b/w New and Malloc
+Difference b/w macro and inline and how they works
+What is Virtual Function And how Virtual table and Virtual pointer Works.
+Write a program to implement Generic Queue class.
+Implement set STL class
+When Should we write our own Assignment operator and Copy Constructor.
+
+
+Notes:
+Q1? Why virtual functions can't be static?
+Ans -> Virtual functions are dispatched/resolved at run-time based on the type of object/instance attached with the pointers/references.
+       while static member functions are not tied with the objects/instances.They are associated with the class and C++ does not have pointers to class.
+	   
+Q2? Why virtual functions be friends?
+Ans -> Nope, friend virtual functions doesn't make sense at all.
+       friend functions are such, that are not member functions and have the right to access private/protected members of a class.
+       virtual functions can only be member functions.We can't have virtual non-member function.
+	   
+Q3? Why constructors can't be virtual?
+Ans -> C++ being static typed (the purpose of RTTI is different) language, 
+      it is meaningless to the C++ compiler to create an object polymorphically.
+      The compiler must be aware of the class type to create an object.In other words, what type of 
+      object to create is a compile-time decision and not run-time. C++ does not allow creating objects 
+      polymorphically.
+
+Q4? If a class has two virtual functions, then how many *vptr will be created by compiler?
+Ans -> Virtual pointer is added by compiler, to the base class which is inherited by the derived classes. 
+       *_vptr points to the virtual table of that class. Regarless of how many virtual functions in a class, 
+	   there is only one virtual pointer in base class and one each virtual table for each class
+
+Q5? When do we need a virtual destructor?
+
+Ans-> when the base class pointer holding the derived class object is deleted, then only the base class destructor is called.
+      if we want that the object of derived class is properly destructed(derived class destructor be called)
+      the we make base class destructor virtual.
+
+Q6? Can there be a pure virtual destructor?
+
+Ans-> Yes, it is possible to have pure virtual destructor. Pure virtual destructor are legal in standard C++ 
+      and one of the most important thing is that if class contains pure virtual destructor it is must to provide a function
+      body for the pure virtual destructor.This seems strange that how a virtual function is pure if it requires a function
+      body???? But destructors are always called in the reverse order of the class derivation. 
+      That means derived class destructor will be invoked first & then base class destructor will be called. 
+      If definition for the pure virtual destructor is not provided then what function body will be called 
+      during object destruction??? Therefore compiler & linker enforce existence of function body for pure virtual destructor.
+
+
+
+Q7? What is deep copy and shallow copy?
+
+Q8? How to make a deep copy?
+Ans- > Compiler does not call copy programmer defined copy constructor when simple assignment operation is done.
+       It calls a default implementation of assignment operator which works like default copy constructor(shallow copy).
+       To make a deep copy, we have to do two things:
+		
+	    1) write our own copy constructor
+	    2) overload the assignment operator.
+
+Q9? Template and static members??
+
+Ans-> Each instantiation of function template has its own copy of local static variables. 
+     For example, in the following program there are two instances: void fun(int ) and void fun(double ). 
+     So two copies of static variable i exist.
+	 
+	template <typename T>
+	void fun(const T& x)
+	{
+	  static int i = 10;
+	  cout << ++i;
+	  return;
+	}
+	 
+	int main()
+	{    
+	  fun<int>(1);  // prints 11
+	  cout << endl;
+	  fun<int>(2);  // prints 12
+	  cout << endl;
+	  fun<double>(1.1); // prints 11
+	  cout << endl;
+	  getchar();
+	  return 0;
+	}
+	
+	The rule for class templates is same as function templates
+    Each instantiation of class template has its own copy of member static variables

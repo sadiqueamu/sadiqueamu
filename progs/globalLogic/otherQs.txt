@@ -1,0 +1,7 @@
+1) will a class having copy constructor have default constructor? - No, if we define a copy constructor, the no default constructor
+   is provided by compiler
+2) when do we need a copy constructor of our own?
+
+3) char *ptr = "hello"; //where is stored in memory? 
+
+Ans: it's stored in the readonly section of the stack memory as it's auto variable.
